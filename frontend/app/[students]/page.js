@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { MdVisibility, MdEdit, MdDelete } from 'react-icons/md';
 import axios from 'axios'
 import { services } from '@/services/utils';
@@ -26,8 +26,9 @@ const Students = () => {
     })()
   }, [])
 
-  const viewStudent = () => {
-    const router = useRouter();
+  const router = useRouter();
+
+  const viewStudent = (studentID) => {
     router.push(`/students/${studentID}`);
     
   };
@@ -55,7 +56,9 @@ const Students = () => {
               <td className="py-2 px-4 border-b">{student.phone}</td>
               <td className="py-2 px-4 border-b">
                 <div className="flex items-center space-x-2">
-                  <MdVisibility title="View" style={{ cursor: 'pointer' }} />
+                  <MdVisibility title="View" style={{ cursor: 'pointer' }} onClick={()=>{
+                    viewStudent(index+1)
+                  }} />
                   <MdEdit title="Edit" style={{ cursor: 'pointer' }} />
                   <MdDelete title="Delete" style={{ cursor: 'pointer', color: 'red' }} />
                 </div>
